@@ -1,4 +1,4 @@
-# composicao
+# composerapplication
 
 A new Flutter project.
 
