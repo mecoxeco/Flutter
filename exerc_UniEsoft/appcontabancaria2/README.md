@@ -1,4 +1,7 @@
 # appcontabancaria
+RA:22105800-2
+NAME: Otávio Perez Luque
+
 
 A new Flutter project.
 
