@@ -10,7 +10,7 @@ class RegisterForm extends StatelessWidget {
       children: <Widget>[
         Card(
           child: ListTile(
-            leading: const Icon(Icons.account_balance_wallet),
+            leading: const Icon(Icons.person),
             title: const Text('Digite o seu Nome Completo'),
             subtitle: TextField(
               decoration: const InputDecoration(
@@ -33,7 +33,7 @@ class RegisterForm extends StatelessWidget {
         ),
         Card(
           child: ListTile(
-            leading: const Icon(Icons.trending_up),
+            leading: const Icon(Icons.badge),
             title: const Text('Digite a sua Senha'),
             subtitle: TextField(
               decoration: const InputDecoration(
