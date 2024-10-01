@@ -1,5 +1,16 @@
 import 'package:flutter/material.dart';
 
+class ContaBancaria<T> {
+  final String tipoConta;
+  final T saldo;
+
+  ContaBancaria({required this.tipoConta, required this.saldo});
+
+  String mostrarSaldo() {
+    return 'Saldo: $saldo';
+  }
+}
+
 class CardMini extends StatelessWidget {
   const CardMini({super.key});
 
@@ -8,28 +19,26 @@ class CardMini extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(8),
       children: <Widget>[
-        Card(
-          child: ListTile(
-            leading: const Icon(Icons.account_balance_wallet),
-            title: const Text('Conta corrente'),
-            subtitle: const Text('Saldo: R\$ 100,00'),
-          ),
+        _buildCard(
+          ContaBancaria<String>(tipoConta: 'Conta corrente', saldo: 'R\$ 100,00'),
         ),
-        Card(
-          child: ListTile(
-            leading: const Icon(Icons.savings),
-            title: const Text('Conta poupança'),
-            subtitle: const Text('Saldo: R\$ 10.000,00'),
-          ),
+        _buildCard(
+          ContaBancaria<String>(tipoConta: 'Conta poupança', saldo: 'R\$ 10.000,00'), 
         ),
-        Card(
-          child: ListTile(
-            leading: const Icon(Icons.trending_up),
-            title: const Text('Investimentos'),
-            subtitle: const Text('Saldo: R\$ 50.000,00'),
-          ),
+        _buildCard(
+          ContaBancaria<int>(tipoConta: 'Investimentos', saldo: 50000),
         ),
       ],
+    );
+  }
+
+  Widget _buildCard(ContaBancaria conta) {
+    return Card(
+      child: ListTile(
+        leading: const Icon(Icons.account_balance_wallet),
+        title: Text(conta.tipoConta),
+        subtitle: Text(conta.mostrarSaldo()),
+      ),
     );
   }
 }
