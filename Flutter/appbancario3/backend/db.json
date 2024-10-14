@@ -1,0 +1,11 @@
+{
+    "contas": [
+      { "id": "1", "nome": "pedrinho", "conta": 100.00, "tipo_conta": "Conta Corrente"  },
+      { "id": "2", "nome": "marcinho", "conta": 300.00, "tipo_conta": "Conta Poupança"  }
+    ],
+    "user" : [
+        {"id": "1", "nome": "pedrinho", "mailaddress": "pedrinho@email.com"},
+        {"id": "2", "nome": "marcinho", "mailaddress": "marcinho@email.com"}
+
+    ]
+  }
