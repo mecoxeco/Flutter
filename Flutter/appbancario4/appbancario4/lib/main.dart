@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'transacao_service.dart';
+import 'screens/lista.dart';
 
 void main() {
   runApp(MyApp());
