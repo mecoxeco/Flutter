@@ -20,10 +20,14 @@ abstract class AbstractsApi {
     return response.body;
   }
 
-  Future<String> updateById(String id) async {
-    var response = await http.put(Uri.parse('$_urllocalHost/$_recurso/$id'));
+  Future<String> updateById(String id, Map<String, String> data) async {
+    var response = await http.put(
+      Uri.parse('$_urllocalHost/$_recurso/$id'),
+      body: jsonEncode(data),
+    );
     return response.body;
   }
+
 
   Future<String> getById(String id) async {
     var response = await http.get(Uri.parse('$_urllocalHost/$_recurso/$id'));
