@@ -1,54 +1,84 @@
 import 'package:flutter/material.dart';
 import '../services/transacao_service.dart';
 
-class TransacaoForm extends StatefulWidget {
+class TransacaoFormScreen extends StatefulWidget {
+  final VoidCallback onSave;
+
+  TransacaoFormScreen({required this.onSave});
+
   @override
-  _TransacaoFormState createState() => _TransacaoFormState();
+  _TransacaoFormScreenState createState() => _TransacaoFormScreenState();
 }
 
-class _TransacaoFormState extends State<TransacaoForm> {
+class _TransacaoFormScreenState extends State<TransacaoFormScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _idController = TextEditingController();
   final _nomeController = TextEditingController();
   final _valorController = TextEditingController();
+  final TransacaoService _transacaoService = TransacaoService();
 
-  void _submitForm() async {
-    String nome = _nomeController.text;
-    String valor = _valorController.text;
-
-    if (nome.isNotEmpty && valor.isNotEmpty) {
-      var service = TransacaoService();
-      await service.createTransacao(nome, valor);
-
-      _nomeController.clear();
-      _valorController.clear();
-
-      Navigator.of(context).pop();
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => TransacaoListPage()));
+  void _createTransacao() async {
+    if (_formKey.currentState!.validate()) {
+      await _transacaoService.createTransacao(
+        _idController.text,
+        _nomeController.text,
+        _valorController.text,
+      );
+      widget.onSave(); // Chama o callback para recarregar a lista
+      Navigator.pop(context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Nova Transação')),
+      appBar: AppBar(
+        title: Text('Nova Transação'),
+      ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _nomeController,
-              decoration: InputDecoration(labelText: 'Nome'),
-            ),
-            TextField(
-              controller: _valorController,
-              decoration: InputDecoration(labelText: 'Valor'),
-              keyboardType: TextInputType.number,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _submitForm,
-              child: Text('Adicionar Transação'),
-            ),
-          ],
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _idController,
+                decoration: InputDecoration(labelText: 'ID'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor insira o ID';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _nomeController,
+                decoration: InputDecoration(labelText: 'Nome'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor insira o nome';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _valorController,
+                decoration: InputDecoration(labelText: 'Valor'),
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor insira o valor';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _createTransacao,
+                child: Text('Salvar'),
+              ),
+            ],
+          ),
         ),
       ),
     );
