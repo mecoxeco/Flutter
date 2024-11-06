@@ -30,7 +30,7 @@ void main() {
 
       final music = Music(id: 1, title: 'Song 1', url: 'http://song1.com');
       controller.addMusic(music);
-      controller.addMusic(music); // Attempting to add a duplicate
+      controller.addMusic(music); 
 
       expect(controller.musics.length, 1);
     });
